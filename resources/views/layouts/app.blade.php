@@ -10,20 +10,20 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
   <div class="container">
-    <a class="navbar-brand" href="/">Mi Tienda</a>
+    <a class="navbar-brand" href="{{ route('home') }}">Mi Tienda</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/products">Productos</a>
+          <a class="nav-link" href="{{ route('products') }}">Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/contact">Contacto</a>
+          <a class="nav-link" href="{{ route('contact') }}">Contacto</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/forum">Novedades</a>
+          <a class="nav-link" href="{{ route('forum') }}">Novedades</a>
         </li>
       </ul>
     </div>
