@@ -25,6 +25,17 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('forum') }}">Novedades</a>
         </li>
+        <li class="nav-item d-flex align-items-center">
+          @if (auth()->check())
+            <form action="{{ route('logout') }}" method="post">
+              @csrf
+              <button type="submit" class="nav-link btn btn-link p-0 text-decoration-none">
+                Logout({{ Auth::user()->name }})</button>
+            </form>
+          @else
+            <a class="nav-link" href="{{ url('/login') }}">Login</i></a>
+          @endif
+        </li>
       </ul>
     </div>
   </div>
