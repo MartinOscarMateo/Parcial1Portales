@@ -13,10 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        // Actualice este archivo pa agregar el nuevo seeder de productos, cuando se ejecuta "php artisan db:seed" o "migrate --seed", tmb se ejecuta ProductSeeder :3 uwu owo
+
         $this->call([
             UserSeeder::class,
             RolesSeeder::class,
             RolesUserSeeder::class,
+            ProductSeeder::class,
         ]);
         
     }
