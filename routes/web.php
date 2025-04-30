@@ -10,7 +10,10 @@ Route::get('/', function () {
 })->name('home');
 
 // Productos
-Route::get('/products', [ProductController::class, 'index'])->name('products'); // Cambie la ruta de products para que apunte al controlador :3
+Route::get('/products', [ProductController::class, 'index'])->name('products'); // Cambié la ruta de products para que apunte al controlador :3
+
+// Detalle del producto
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.detail');
 
 // Contacto
 Route::get('/contact', function () {
