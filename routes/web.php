@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 
-// Pagina principal con productos destacados
+// Pagina principal (con productos destacados)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Productos (listado)
