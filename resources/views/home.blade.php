@@ -4,7 +4,7 @@
 
 @section('content')
 
-{{-- Carrusel con banners --}}
+{{-- Carrusel banners --}}
 <div id="bannerCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -22,11 +22,31 @@
   </button>
 </div>
 
-{{-- Sección informativa --}}
+{{-- Secc info --}}
 <section class="text-center py-5">
   <div class="container">
     <h2 class="mb-3">La Tienda Oficial de DC Shoes en Argentina</h2>
     <p>Descubrí lo último en zapatillas urbanas y de skate. Productos originales, estilo único y envío a todo el país. Elegí tu próximo par DC hoy mismo.</p>
+  </div>
+</section>
+
+{{-- Beneficios tienda --}}
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <h5>Envíos a todo el país</h5>
+        <p>Hacemos llegar tus DC Shoes estés donde estés, rápido y seguro.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Calidad garantizada</h5>
+        <p>Productos 100% originales con materiales duraderos y diseño único.</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Atención personalizada</h5>
+        <p>Te acompañamos en cada paso para que elijas lo mejor para vos.</p>
+      </div>
+    </div>
   </div>
 </section>
 
