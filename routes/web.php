@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PostController;
 
 // Pagina principal (con productos destacados)
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -20,9 +21,7 @@ Route::get('/contact', function () {
 })->name('contact');
 
 // Foro de novedades
-Route::get('/forum', function () {
-    return view('forum');
-})->name('forum');
+Route::get('/forum', [PostController::class, 'index'])->name('forum');
 
 // Panel de usuario (solo si esta autenticado)
 Route::middleware(['auth'])->group(function () {

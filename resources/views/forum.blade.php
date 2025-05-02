@@ -3,17 +3,27 @@
 @section('title', 'Novedades')
 
 @section('content')
-    <h1 class="mb-4">Novedades y Noticias</h1>
+<div class="container">
+    <h1 class="mb-4 text-center">Novedades y Noticias</h1>
 
-    <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action">
-            Nueva colección de verano 2025 disponible ahora.
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-            ¡Grandes descuentos este fin de semana!
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">
-            Abrimos nueva sucursal en Mendoza.
-        </a>
-    </div>
+    @if($posts->isEmpty())
+        <p class="text-center">Aún no hay publicaciones.</p>
+    @else
+        <div class="row">
+            @foreach($posts as $post)
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $post->title }}</h5>
+                            <p class="card-text">{{ $post->content }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">Publicado el {{ $post->created_at->format('d/m/Y') }}</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
+</div>
 @endsection
