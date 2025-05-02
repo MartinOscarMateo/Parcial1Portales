@@ -30,8 +30,8 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('forum') }}">Novedades</a>
         </li>
-         <li class="nav-item ">
-          @if (auth()->check())
+        @if (auth()->check())
+          i class="nav-item ">
             <div class="dropdown">
               <button class="btn dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ Auth::user()->name }}
@@ -51,10 +51,16 @@
                 @endif
               </ul>
             </div>
+          </li>
           @else
-          <a class="nav-link" href="{{ url('/login') }}">Login</a>
+          <li>
+            <a class="nav-link" href="{{ url('/login') }}">Login</a>
+          </li>
+          <li>
+            <a class="nav-link" href="{{ url('/register') }}">Registro</a>
+          </li>
           @endif
-        </li>
+        
       </ul>
     </div>
   </div>
