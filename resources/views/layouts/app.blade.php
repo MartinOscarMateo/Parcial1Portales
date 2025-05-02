@@ -30,14 +30,8 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('forum') }}">Novedades</a>
         </li>
-         <li class="nav-item "> {{-- d-flex align-items-center --}}
+         <li class="nav-item ">
           @if (auth()->check())
-          <form action="{{ route('logout') }}" method="post">
-            @csrf
-            <button type="submit" class="nav-link btn btn-link p-0 text-decoration-none">
-              Logout({{ Auth::user()->name }})
-            </button>
-          </form>
             <div class="dropdown">
               <button class="btn dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ Auth::user()->name }}
@@ -56,7 +50,6 @@
                   <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Administrar</a></li>
                 @endif
               </ul>
-              
             </div>
           @else
           <a class="nav-link" href="{{ url('/login') }}">Login</a>
