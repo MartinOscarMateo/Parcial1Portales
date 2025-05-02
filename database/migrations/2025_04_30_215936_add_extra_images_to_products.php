@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // Agregar columnas para imágenes adicionales
-            $table->string('extra_image_1')->nullable(); // Imagen extra 1
-            $table->string('extra_image_2')->nullable(); // Imagen extra 2
+            $table->string('extra_image_1')->nullable(); 
+            $table->string('extra_image_2')->nullable(); 
         });
     }
 
@@ -24,7 +23,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            // Eliminar las columnas de imágenes adicionales
             $table->dropColumn('extra_image_1');
             $table->dropColumn('extra_image_2');
         });
