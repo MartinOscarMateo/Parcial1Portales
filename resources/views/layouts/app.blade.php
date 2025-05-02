@@ -31,7 +31,7 @@
           <a class="nav-link" href="{{ route('forum') }}">Novedades</a>
         </li>
         @if (auth()->check())
-          i class="nav-item ">
+          <li class="nav-item ">
             <div class="dropdown">
               <button class="btn dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ Auth::user()->name }}
