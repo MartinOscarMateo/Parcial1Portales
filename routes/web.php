@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CarritoController;
 
 // Pagina principal (con productos destacados)
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -37,11 +38,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+// Panel de administrador (solo si es admin)
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 });
+
+//carrito
+Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
 
 // Rutas de autenticacion
 require __DIR__.'/auth.php';

@@ -52,15 +52,17 @@
               </ul>
             </div>
           </li>
-          @else
+        @else
           <li>
             <a class="nav-link" href="{{ url('/login') }}">Login</a>
           </li>
           <li>
             <a class="nav-link" href="{{ url('/register') }}">Registro</a>
           </li>
-          @endif
-        
+        @endif
+        <li>
+          <a class="nav-link" href="{{ route('carrito.index') }}">Carrito</a>
+        </li>
       </ul>
     </div>
   </div>
