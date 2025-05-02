@@ -27,14 +27,28 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('forum') }}">Novedades</a>
         </li>
-        <li class="nav-item d-flex align-items-center">
+         <li class="nav-item "> {{-- d-flex align-items-center --}}
           @if (auth()->check())
-            <form action="{{ route('logout') }}" method="post">
-              @csrf
-              <button type="submit" class="nav-link btn btn-link p-0 text-decoration-none">
-                Logout({{ Auth::user()->name }})
+            <div class="dropdown">
+              <button class="btn dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ Auth::user()->name }}
               </button>
-            </form>
+              <ul class="dropdown-menu dropdown-menu">
+                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Editar Perfil</a></li>
+                <li>
+                  <form class="dropdown-item" action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit" class="nav-link btn btn-link p-0 text-decoration-none text-black">
+                      Logout
+                    </button>
+                  </form>
+                </li>
+                @if(auth()->check() && auth()->user()->hasRol('admin'))
+                  <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Administrar</a></li>
+                @endif
+              </ul>
+              
+            </div>
           @else
             <a class="nav-link" href="{{ url('/login') }}">Login</a>
           @endif

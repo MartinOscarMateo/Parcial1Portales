@@ -11,7 +11,11 @@ class Roles extends Model
 
     protected $table = 'roles';
 
-    public function user () {
+    protected $fillable = [
+        'name',
+    ];
+
+    public function users () {
         return $this->belongsToMany(User::class); 
     }
 }
