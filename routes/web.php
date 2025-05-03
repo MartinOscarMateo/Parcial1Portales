@@ -45,15 +45,44 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+<<<<<<< HEAD
 // Panel del ADMIN
+=======
+
+
+
+// Panel del ADMIN 8)
+>>>>>>> a4592f3a144eb5577aab09b7dfa3c0150bc7fe62
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
+<<<<<<< HEAD
     Route::get('/admin/posts/create', [PostController::class, 'create'])->name('posts.create');
+=======
+    // Ver publis
+    Route::get('/admin/posts', [PostController::class, 'adminIndex'])->name('posts.index');
+>>>>>>> a4592f3a144eb5577aab09b7dfa3c0150bc7fe62
 
     Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
+
+    // Actualizar publi existente 
+    Route::put('/admin/posts/{id}', [PostController::class, 'update'])->name('posts.update');
+
+    // Eliminar publi
+    Route::delete('/admin/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 });
 
+<<<<<<< HEAD
 require __DIR__.'/auth.php';
+=======
+
+
+
+// Carrito
+Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
+
+// Rutas de autenticacion
+require __DIR__.'/auth.php';
+>>>>>>> a4592f3a144eb5577aab09b7dfa3c0150bc7fe62

@@ -7,35 +7,59 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    // Mostrar publis en el foro xdddddddddddddd
+    // Mostrar publicaciones públicas (foro)
     public function index()
     {
         $posts = Post::latest()->get();
         return view('forum', compact('posts'));
     }
 
-    // Mostrar el formulario
-    public function create()
+    // Mostrar todas las publicaciones en el panel admin
+    public function adminIndex()
     {
-        return view('admin.posts.create');
+        $posts = Post::latest()->get();
+        return view('admin.posts.index', compact('posts'));
     }
 
-    // Guardar la publi en la base
+    // Guardar una nueva publicación
     public function store(Request $request)
     {
-        // Validamos como campeones WAAA
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
 
-        // Crear post
         Post::create([
             'title' => $request->title,
             'content' => $request->content,
         ]);
 
-        // Redirigimos uwu mas mensajito jeje :3 
-        return redirect()->route('posts.create')->with('success', 'Publicación creada correctamente.');
+        return redirect()->route('posts.index')->with('success', 'Publicación creada correctamente.');
+    }
+
+    // Actualizar una publicación existente
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'Publicación actualizada correctamente.');
+    }
+
+    // Eliminar una publicación
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('success', 'Publicación eliminada correctamente.');
     }
 }
