@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CarritoController;
 
 // Pagina principal (con productos destacados)
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -38,9 +39,13 @@ Route::middleware('auth')->group(function () {
 });
 
 
+<<<<<<< HEAD
 
 
 // Panel del ADMIN 8)
+=======
+// Panel de administrador (solo si es admin)
+>>>>>>> dab2a367c103d08fb55b877df6668d9e0e2b7f79
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
@@ -53,6 +58,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
 });
 
+<<<<<<< HEAD
 
 
+=======
+//carrito
+Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
+
+// Rutas de autenticacion
+>>>>>>> dab2a367c103d08fb55b877df6668d9e0e2b7f79
 require __DIR__.'/auth.php';

@@ -31,7 +31,7 @@
           <a class="nav-link" href="{{ route('forum') }}">Novedades</a>
         </li>
         @if (auth()->check())
-          i class="nav-item ">
+          <li class="nav-item ">
             <div class="dropdown">
               <button class="btn dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ Auth::user()->name }}
@@ -52,15 +52,17 @@
               </ul>
             </div>
           </li>
-          @else
+        @else
           <li>
             <a class="nav-link" href="{{ url('/login') }}">Login</a>
           </li>
           <li>
             <a class="nav-link" href="{{ url('/register') }}">Registro</a>
           </li>
-          @endif
-        
+        @endif
+        <li>
+          <a class="nav-link" href="{{ route('carrito.index') }}">Carrito</a>
+        </li>
       </ul>
     </div>
   </div>
