@@ -16,7 +16,7 @@
         </div>
         <div class="col-md-4">
             {{-- Futuro link a gestión de usuarios --}}
-            <a href="#" class="btn btn-outline-secondary w-100 mb-3 disabled">Gestionar Usuarios (próximamente)</a>
+            <a href="{{ route('users.index') }}" class="btn btn-primary w-100 mb-3">Gestionar Usuarios</a>
         </div>
     </div>
 </div>

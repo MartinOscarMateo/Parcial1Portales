@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\UserController;
 
 // Página principal
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -53,6 +54,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
     Route::put('/admin/posts/{id}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/admin/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    Route::get('admin/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('admin/users', [UserController::class, 'store'])->name('users.store');
+    Route::put('admin/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('admin/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
 });
 
 // Rutas de autenticación
