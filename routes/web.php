@@ -37,11 +37,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
+
+// Panel del ADMIN 8)
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+
+    // Crear nueva publi
+    Route::get('/admin/posts/create', [PostController::class, 'create'])->name('posts.create');
+
+    // Guardar nueva publi
+    Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
 });
 
-// Rutas de autenticacion
+
+
 require __DIR__.'/auth.php';
