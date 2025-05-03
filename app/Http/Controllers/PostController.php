@@ -34,8 +34,24 @@ class PostController extends Controller
             'content' => $request->content,
         ]);
 
-        // Redirigir a la vista admin de publicaciones
         return redirect()->route('posts.index')->with('success', 'Publicación creada correctamente.');
+    }
+
+    // Actualizar una publicación existente
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('posts.index')->with('success', 'Publicación actualizada correctamente.');
     }
 
     // Eliminar una publicación
@@ -44,7 +60,6 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->delete();
 
-        // Redirigir a la vista admin de publicaciones
         return redirect()->route('posts.index')->with('success', 'Publicación eliminada correctamente.');
     }
 }

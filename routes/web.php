@@ -47,18 +47,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    // Ver publicaciones
+    // Ver publis
     Route::get('/admin/posts', [PostController::class, 'adminIndex'])->name('posts.index');
-
-    // Crear nueva publi
-    Route::get('/admin/posts/create', [PostController::class, 'create'])->name('posts.create');
 
     // Guardar nueva publi
     Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
 
+    // Actualizar publi existente 
+    Route::put('/admin/posts/{id}', [PostController::class, 'update'])->name('posts.update');
+
     // Eliminar publi
     Route::delete('/admin/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 });
+
 
 
 

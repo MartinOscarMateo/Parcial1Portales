@@ -47,21 +47,26 @@
             <tbody>
                 @foreach($posts as $post)
                     <tr>
-                        <td>{{ $post->id }}</td>
-                        <td>{{ $post->title }}</td>
-                        <td>{{ Str::limit($post->content, 60) }}</td>
-                        <td>{{ $post->created_at->format('d/m/Y H:i') }}</td>
-                        <td>
-                            {{-- Botón Editar (a implementar más adelante) --}}
-                            <a href="#" class="btn btn-sm btn-secondary me-2 disabled">Editar</a>
-
-                            {{-- Botón Eliminar --}}
-                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que querés eliminar esta publicación?')">Eliminar</button>
-                            </form>
-                        </td>
+                        <form action="{{ route('posts.update', $post->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <td>{{ $post->id }}</td>
+                            <td>
+                                <input type="text" name="title" value="{{ $post->title }}" class="form-control" required>
+                            </td>
+                            <td>
+                                <textarea name="content" class="form-control" rows="2" required>{{ $post->content }}</textarea>
+                            </td>
+                            <td>{{ $post->created_at->format('d/m/Y H:i') }}</td>
+                            <td class="d-flex gap-2">
+                                <button type="submit" class="btn btn-sm btn-secondary">Actualizar</button>
+                        </form>
+                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que querés eliminar esta publicación?')">Eliminar</button>
+                        </form>
+                            </td>
                     </tr>
                 @endforeach
             </tbody>
