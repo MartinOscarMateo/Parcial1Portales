@@ -10,26 +10,23 @@
         <div class="col-md-6">
             <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <!--Img principal-->
                     <div class="carousel-item active">
                         <img src="{{ asset($product->image) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
                     </div>
-                    
-                    <!-- Aca van las img extras -->
+
                     @if ($product->extra_image_1)
-                        <div class="carousel-item">
-                            <img src="{{ asset($product->extra_image_1) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
-                        </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset($product->extra_image_1) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
+                    </div>
                     @endif
 
                     @if ($product->extra_image_2)
-                        <div class="carousel-item">
-                            <img src="{{ asset($product->extra_image_2) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
-                        </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset($product->extra_image_2) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
+                    </div>
                     @endif
                 </div>
 
-                <!-- Aca manejo el carrousel-->
                 <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
@@ -77,10 +74,25 @@
             </ul>
 
             <div class="mt-4">
-                <a href="#" class="btn btn-success w-100 py-3">Comprar ahora</a>
+                <form action="{{ route('carrito.add', ['id' => $product->id]) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="name" value="{{ $product->name }}">
+                    <input type="hidden" name="price" value="{{ $product->price }}">
+                    <input type="hidden" name="image" value="{{ $product->image }}">
+                    <input type="hidden" name="size" id="selected-size" value="35"> 
+
+                    <button type="submit" class="btn btn-warning w-100 py-3 mt-3">
+                        <i class="bi bi-cart-plus"></i> Agregar al carrito
+                    </button>
+                </form>
+
+                <script>
+                    document.getElementById('size').addEventListener('change', function() {
+                        document.getElementById('selected-size').value = this.value;
+                    });
+                </script>
             </div>
         </div>
     </div>
 </div>
-
 @endsection

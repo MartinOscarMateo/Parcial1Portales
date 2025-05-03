@@ -7,24 +7,31 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CarritoController;
 
-// Pagina principal (con productos destacados)
+// Paina principal 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Productos (listado)
+// Productos 
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 
-// Detalle individual del producto
+// Detallel del producto
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.detail');
 
-// Pagina de contacto
+// Paina de contacto
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-// Foro de novedades
+// Nldades
 Route::get('/forum', [PostController::class, 'index'])->name('forum');
 
-// Panel de usuario (solo si esta autenticado)
+// Carrito de compras
+Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
+Route::post('/carrito/agregar/{id}', [CarritoController::class, 'add'])->name('carrito.add');  // Esta ruta es la que usa el formulario
+Route::post('/carrito/eliminar/{id}', [CarritoController::class, 'remove'])->name('carrito.remove');
+Route::post('/carrito/vaciar', [CarritoController::class, 'clear'])->name('carrito.clear');
+Route::post('/carrito/update/{id}', [CarritoController::class, 'updateQuantity'])->name('carrito.updateQuantity');
+
+// Panel de usuario (solo si está autenticado)
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -38,33 +45,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-<<<<<<< HEAD
-
-
-// Panel del ADMIN 8)
-=======
-// Panel de administrador (solo si es admin)
->>>>>>> dab2a367c103d08fb55b877df6668d9e0e2b7f79
+// Panel del ADMIN
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    // Crear nueva publi
     Route::get('/admin/posts/create', [PostController::class, 'create'])->name('posts.create');
 
-    // Guardar nueva publi
     Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
 });
 
-<<<<<<< HEAD
-
-
-=======
-//carrito
-Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
-
-// Rutas de autenticacion
->>>>>>> dab2a367c103d08fb55b877df6668d9e0e2b7f79
 require __DIR__.'/auth.php';

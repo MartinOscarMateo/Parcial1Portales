@@ -18,6 +18,7 @@
                         <p class="fw-bold text-center text-primary">
                             ${{ number_format($product->price, 0, ',', '.') }}
                         </p>
+
                         <a href="{{ route('product.detail', $product->id) }}" class="btn btn-primary w-100 mt-2">Ver Producto</a>
                     </div>
                 </div>
