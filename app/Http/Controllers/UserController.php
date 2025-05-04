@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        // Aquí puedes obtener la lista de usuarios y pasarlos a la vista
+        // lista de usuarios 
         $users = User::all();
         return view('admin.users.index', compact('users'));
     }
@@ -18,7 +18,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-        // Aquí puedes validar y guardar el nuevo usuario
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -32,7 +31,7 @@ class UserController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        // Asignar el rol al usuario
+        // Asigna rol al usuario
         $rol = Roles::where('name', $request->role)->first();
         $user->roles()->attach($rol);
 
@@ -41,7 +40,7 @@ class UserController extends Controller
 
     public function update (Request $request, $id)
     {
-        // Aquí puedes validar y actualizar el usuario existente
+        // validar y actualizar usuario existente
         $user = User::findOrFail($id);
 
         $request->validate([
@@ -60,7 +59,6 @@ class UserController extends Controller
 
         $user->save();
 
-        // Syncronizar el rol del usuario
         $rol = Roles::where('name', $request->role)->first();
         $user->roles()->sync($rol);
 
@@ -70,7 +68,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        // Aquí puedes eliminar el usuario
+        // eliminar usuario
         $user = User::findOrFail($id);
 
         $user->roles()->detach(); // Desvincular roles

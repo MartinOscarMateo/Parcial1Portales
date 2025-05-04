@@ -7,21 +7,21 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    // Mostrar publicaciones públicas (foro)
+    // Mostrar publis
     public function index()
     {
         $posts = Post::latest()->get();
         return view('forum', compact('posts'));
     }
 
-    // Mostrar todas las publicaciones en el panel admin
+    // Mostrar todas las publis
     public function adminIndex()
     {
         $posts = Post::latest()->get();
         return view('admin.posts.index', compact('posts'));
     }
 
-    // Guardar una nueva publicación
+    // Guardar nueva publi
     public function store(Request $request)
     {
         $request->validate([
@@ -37,7 +37,7 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Publicación creada correctamente.');
     }
 
-    // Actualizar una publicación existente
+    // Actualiza una publi existente
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -54,7 +54,7 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Publicación actualizada correctamente.');
     }
 
-    // Eliminar una publicación
+    // Eliminar una publi
     public function destroy($id)
     {
         $post = Post::findOrFail($id);

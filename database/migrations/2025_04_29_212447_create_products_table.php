@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Esta migracion nos define la estructura de la tabla products
+        // Esta migracion nos define la estructura de la tabla products xd
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');

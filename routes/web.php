@@ -8,7 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\UserController;
 
-// Página principal
+// Pag principal
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Productos
@@ -20,31 +20,31 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-// Foro de novedades
+// Foro novedades
 Route::get('/forum', [PostController::class, 'index'])->name('forum');
 
-// Carrito de compras
+// Carrito compra
 Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
 Route::post('/carrito/agregar/{id}', [CarritoController::class, 'add'])->name('carrito.add');
 Route::post('/carrito/eliminar/{id}', [CarritoController::class, 'remove'])->name('carrito.remove');
 Route::post('/carrito/vaciar', [CarritoController::class, 'clear'])->name('carrito.clear');
 Route::post('/carrito/update/{id}', [CarritoController::class, 'updateQuantity'])->name('carrito.updateQuantity');
 
-// Panel de usuario
+// Panel usuario
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');
 });
 
-// Perfil de usuario
+// Perfil usuario
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Panel del ADMIN
+// Panel ADMIN el mas capo :3
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
@@ -62,5 +62,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
-// Rutas de autenticación
+
 require __DIR__.'/auth.php';
