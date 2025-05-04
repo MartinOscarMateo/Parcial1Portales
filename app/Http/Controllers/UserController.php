@@ -17,7 +17,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        \Log::info('Store method called', $request->all());
 
         // Aquí puedes validar y guardar el nuevo usuario
         $request->validate([

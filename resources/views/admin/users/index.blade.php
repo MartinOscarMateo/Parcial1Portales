@@ -67,8 +67,9 @@
         <tbody>
             @foreach($users as $user)
                 <tr>
-                    <form action="{{ route('users.store', $user->id) }}" method="POST">
+                    <form action="{{ route('users.update', $user->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <td>{{ $user->id }}</td>
                         <td>
                             <input type="text" name="name" value="{{ $user->name }}" class="form-control" required>
@@ -85,13 +86,14 @@
                         <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
                         <td>
                             <button type="submit" class="btn btn-success">Actualizar</button>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que querés eliminar este usuario?')">Eliminar</button>
-                            </form>
-                        </td>
                     </form>
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que querés eliminar este usuario?')">Eliminar</button>
+                    </form>
+                        </td>
+                    
                 </tr>
             @endforeach
         </tbody>
