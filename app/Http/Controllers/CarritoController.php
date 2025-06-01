@@ -72,4 +72,28 @@ class CarritoController extends Controller
         session()->forget('cart');
         return redirect()->route('carrito.index')->with('success', 'Carrito vacío');
     }
+
+    // Agrega estos dos métodos:
+
+    public function checkout()
+    {
+        $cart = session()->get('cart', []);
+        if (empty($cart)) {
+            return redirect()->route('carrito.index')->with('error', 'El carrito está vacío');
+        }
+
+        $totalPrice = 0;
+        foreach ($cart as $item) {
+            $totalPrice += $item['price'] * $item['quantity'];
+        }
+
+        return view('carrito.checkout', compact('cart', 'totalPrice'));
+    }
+
+    public function finalizar()
+    {
+        session()->forget('cart');
+
+        return view('carrito.gracias');
+    }
 }
