@@ -40,7 +40,7 @@ class CarritoController extends Controller
         }
 
         session()->put('cart', $cart);
-        return redirect()->route('carrito.index')->with('success', 'Producto agregado al carrito');
+        return back()->with('success', 'Producto agregado al carrito');
     }
 
     public function updateQuantity(Request $request, $key)
@@ -72,8 +72,6 @@ class CarritoController extends Controller
         session()->forget('cart');
         return redirect()->route('carrito.index')->with('success', 'Carrito vacío');
     }
-
-    // Agrega estos dos métodos:
 
     public function checkout()
     {
