@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -45,14 +46,16 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:90',
+            'price' => 'required|numeric|min:1|max:999999',
             'description' => 'required|string|max:200',
-            'price' => 'required|numeric|min:0',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
+            'image' => '/' . $request->file('image')->store('products', 'public'),
         ]);
     
 
@@ -63,15 +66,29 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:90',
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:1|max:999999',
             'description' => 'required|string|max:200',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $product = Product::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            // Elimina la imagen anterior
+            $imagePath = ltrim($product->image, '/');
+            Storage::disk('public')->delete($imagePath);
+
+            // Guarda la nueva imagen
+            $newImage = '/' . $request->file('image')->store('products', 'public');
+        } else {
+            $newImage = $product->image;
+        }
+        
         $product->update([
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
+            'image' => $newImage,
         ]);
 
         return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente.'); 
@@ -80,6 +97,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
+
+        // Eliminar la imagen del producto
+        $imagePath = ltrim($product->image, '/');
+        Storage::disk('public')->delete($imagePath);
+
         $product->delete();
 
         return redirect()->route('products.index')->with('success', 'Producto eliminado correctamente.'); 

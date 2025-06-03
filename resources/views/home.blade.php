@@ -57,7 +57,7 @@
     @foreach($products as $product)
       <div class="col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
-          <img src="{{ asset($product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+          <img src="{{ asset('storage' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
           <div class="card-body text-center">
             <h5 class="card-title">{{ $product->description }}</h5>
             <p class="card-text fw-bold">${{ number_format($product->price, 0, ',', '.') }}</p>

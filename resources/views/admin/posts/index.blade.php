@@ -13,7 +13,7 @@
 
     {{-- Formulario para nueva publicación --}}
     <div class="card mb-4">
-        <div class="card-header">Crear nueva publicación</div>
+        <div class="card-header">Crear nuevo publicación</div>
         <div class="card-body">
             <form action="{{ route('posts.store') }}" method="POST">
                 @csrf

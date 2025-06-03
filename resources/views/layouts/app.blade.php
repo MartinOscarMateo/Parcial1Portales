@@ -55,6 +55,10 @@
 </nav>
 
 <style>
+  main {
+    min-height: 55vh
+  }
+
   .navbar-nav .nav-link {
     font-weight: 500;
     transition: all 0.3s ease;
