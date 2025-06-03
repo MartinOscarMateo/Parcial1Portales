@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-4">
             {{-- Futuro link a gestión de productos --}}
-            <a href="#" class="btn btn-outline-secondary w-100 mb-3 disabled">Gestionar Productos (próximamente)</a>
+            <a href="{{ route('products.index') }}" class="btn btn-primary w-100 mb-3">Gestionar Productos</a>
         </div>
         <div class="col-md-4">
             {{-- Futuro link a gestión de usuarios --}}

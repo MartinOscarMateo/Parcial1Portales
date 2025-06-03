@@ -60,6 +60,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('admin/users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('admin/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
+    Route::get('admin/products', [ProductController::class, 'adminIndex'])->name('products.index');
+    Route::post('admin/products', [ProductController::class, 'create'])->name('products.create');
+    Route::put('admin/products/{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('admin/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+
 });
 
 
