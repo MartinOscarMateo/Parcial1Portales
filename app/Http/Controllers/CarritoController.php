@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Orden;
+use App\Models\ItemOrden;
+use App\Models\Pago;
+use Illuminate\Support\Facades\Auth;
 
 class CarritoController extends Controller
 {
@@ -90,8 +94,42 @@ class CarritoController extends Controller
 
     public function finalizar()
     {
+        $cart = session()->get('cart', []);
+        if (empty($cart)) {
+            return redirect()->route('carrito.index')->with('error', 'No hay productos en el carrito.');
+        }
+
+        $total = 0;
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
+        // Crear la orden
+        $orden = Orden::create([
+            'user_id' => Auth::id(),
+            'total' => $total,
+            'estado' => 'pendiente',
+        ]);
+
+        foreach ($cart as $key => $item) {
+            ItemOrden::create([
+                'orden_id' => $orden->id,
+                'product_id' => explode('-', $key)[0],
+                'size' => $item['size'],
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+            ]);
+        }
+
+        Pago::create([
+            'orden_id' => $orden->id,
+            'metodo' => 'mercado_pago',
+            'estado' => 'pendiente',
+            'referencia' => null,
+        ]);
+
         session()->forget('cart');
 
-        return view('carrito.gracias');
+        return view('carrito.gracias', ['orden' => $orden]);
     }
 }
