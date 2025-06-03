@@ -18,12 +18,16 @@
             <form action="{{ route('products.create') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label for="title" class="form-label">Título</label>
-                    <input type="text" name="title" class="form-control" required>
+                    <label for="name" class="form-label">Nombre</label>
+                    <input type="text" name="name" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label for="content" class="form-label">Contenido</label>
-                    <textarea name="content" rows="3" class="form-control" required></textarea>
+                    <label for="price" class="form-label">Precio</label>
+                    <input type="number" name="price" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="descripion" class="form-label">Descripción</label>
+                    <textarea name="descripion" rows="3" class="form-control" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Publicar</button>
             </form>
@@ -39,8 +43,8 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Descripción</th>
                     <th>Precio</th>
+                    <th>Descripción</th>
                     <th>Imagen</th>
                     <th>Fecha</th>
                     <th>Acciones</th>
@@ -57,13 +61,13 @@
                                 <input type="text" name="name" value="{{ $product->name }}" class="form-control" required>
                             </td>
                             <td>
+                                <input type="number" name="price" value="{{ number_format($product->price, 0, ',', '.') }}" class="form-control" required>
+                            </td>
+                            <td>
                                 <input type="text" name="description" value="{{ $product->description }}" class="form-control" required>
                             </td>
                             <td>
-                                <input type="text" name="name" value="{{ number_format($product->price, 0, ',', '.') }}" class="form-control" required>
-                            </td>
-                            <td>
-                                <input type="text" name="image" value="{{ $product->image }}" class="form-control" required>
+                                <img src="{{ asset('storage' . $product->image) }}" alt="{{ $product->description }}" class="img-thumbnail" style="max-width: 100px;">
                             </td>
                             <td>{{ $product->created_at->format('d/m/Y H:i') }}</td>
                             <td class="d-flex gap-2">

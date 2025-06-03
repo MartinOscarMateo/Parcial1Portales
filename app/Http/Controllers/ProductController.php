@@ -41,7 +41,7 @@ class ProductController extends Controller
         return view('products.show', compact('product')); 
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:90',
@@ -49,7 +49,11 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
         ]);
 
-        Product::create($request->all());
+        Product::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+        ]);
     
 
         return redirect()->route('products.index')->with('success', 'Producto creado correctamente.'); 
@@ -59,12 +63,16 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:90',
-            'description' => 'required|string|max:200',
             'price' => 'required|numeric|min:0',
+            'description' => 'required|string|max:200',
         ]);
 
         $product = Product::findOrFail($id);
-        $product->update($request->all());
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+        ]);
 
         return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente.'); 
     }

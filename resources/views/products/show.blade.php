@@ -11,7 +11,7 @@
             <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{ asset($product->image) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
+                        <img src="{{ asset('storage' . $product->image) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
                     </div>
 
                     @if ($product->extra_image_1)
