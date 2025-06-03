@@ -26,9 +26,14 @@ Route::get('/forum', [PostController::class, 'index'])->name('forum');
 // Carrito compra
 Route::get('/carrito', [CarritoController::class, 'index'])->name('carrito.index');
 Route::post('/carrito/agregar/{id}', [CarritoController::class, 'add'])->name('carrito.add');
-Route::post('/carrito/eliminar/{id}', [CarritoController::class, 'remove'])->name('carrito.remove');
+Route::post('/carrito/eliminar/{key}', [CarritoController::class, 'remove'])->name('carrito.remove');
 Route::post('/carrito/vaciar', [CarritoController::class, 'clear'])->name('carrito.clear');
-Route::post('/carrito/update/{id}', [CarritoController::class, 'updateQuantity'])->name('carrito.updateQuantity');
+Route::post('/carrito/update/{key}', [CarritoController::class, 'updateQuantity'])->name('carrito.updateQuantity');
+
+// Checkout y finalizar compra
+Route::get('/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
+Route::post('/carrito/finalizar', [CarritoController::class, 'finalizar'])->name('carrito.finalizar');
+
 
 // Panel usuario
 Route::middleware(['auth'])->group(function () {

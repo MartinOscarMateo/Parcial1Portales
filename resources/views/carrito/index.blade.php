@@ -56,6 +56,7 @@
         <h4>Total: ${{ number_format($totalPrice, 2, ',', '.') }}</h4>
         <div>
             <a href="{{ route('products') }}" class="btn btn-secondary">Seguir comprando</a>
+            <a href="{{ route('carrito.checkout') }}" class="btn btn-primary">Finalizar compra</a>
             <form action="{{ route('carrito.clear') }}" method="POST" style="display:inline;">
                 @csrf
                 <button type="submit" class="btn btn-danger">Vaciar Carrito</button>
