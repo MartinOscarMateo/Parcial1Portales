@@ -10,38 +10,56 @@
 ## Pasos para poner en marcha el proyecto
 
 1. **Clona el repositorio o hacer pull:**
+
    ```bash
    git clone https://github.com/MartinOscarMateo/Parcial1Portales.git
    cd Parcial1Portales
    git pull origin main
    ```
+
 2. **Instala las dependencias de PHP y JavaScript:**
+
     ```bash
     composer install
     npm install
     ```
+
 3. **Configura .env**
+
     - Copia el archivo .env.example a .env y configura tus variables según corresponda.
     - Genera la clave de la aplicación:
     ```bash
     php artisan key:generate
     ```
+
 4. **Migra y llena la base de datos:**
-    ```bash
-    php artisan migrate:fresh --seed
-    ```
+
+    - Si es la **primera vez** que clonas el proyecto:
+     ```bash
+     php artisan migrate --seed
+     ```
+    - Si ya tenías el proyecto y acabas de hacer pull (y quieres reiniciar la base de datos):
+     ```bash
+     php artisan migrate:fresh --seed
+     ```
+
 5. **Prepara el almacenamiento de imágenes:**
+
     Ejecuta el comando para crear el acceso directo a la carpeta de almacenamiento:
     ```bash
     php artisan storage:link
     ```
     Copia o move la carpeta `products` (con las imágenes de los productos) a `storage/app/public/`.  
     Después de ejecutar `php artisan storage:link`
+
 6. **Inicia el servidor:**
+
     ```bash
     php artisan serve
     ```
+
 7. **Accede a la aplicación:**
+
    - Abre tu navegador y visita [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ## About Laravel
