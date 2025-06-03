@@ -11,7 +11,7 @@
         <div class="col">
             <article class="card h-100 shadow-sm border-light rounded-3 mb-4">
                 <img 
-                    src="{{ asset('storage' . $product->image) }}" 
+                    src="{{ asset($product->image) }}" 
                     class="card-img-top" 
                     alt="Imagen de {{ $product->name }}" 
                     style="object-fit: cover; height: 250px;"

@@ -41,9 +41,9 @@
                     </td>
                     <td>${{ number_format($item['price'] * $item['quantity'], 2, ',', '.') }}</td>
                     <td>
-                        <form action="{{ route('carrito.remove', $key) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('carrito.remove', $key) }}" method="POST" class="delete-form">
                             @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            <button type="button" class="btn btn-danger btn-sm btn-confirm-delete" data-item="{{ $item['name'] }}">Eliminar</button>
                         </form>
                     </td>
                 </tr>
@@ -57,14 +57,58 @@
         <div>
             <a href="{{ route('products') }}" class="btn btn-secondary">Seguir comprando</a>
             <a href="{{ route('carrito.checkout') }}" class="btn btn-primary">Finalizar compra</a>
-            <form action="{{ route('carrito.clear') }}" method="POST" style="display:inline;">
+            <form action="{{ route('carrito.clear') }}" method="POST" class="clear-form d-inline">
                 @csrf
-                <button type="submit" class="btn btn-danger">Vaciar Carrito</button>
+                <button type="button" class="btn btn-danger btn-confirm-clear">Vaciar Carrito</button>
             </form>
         </div>
     </div>
     @else
-    <p class="text-center">Tu carrito está vacio <a href="{{ route('products') }}">Ver productos</a></p>
+    <p class="text-center">Tu carrito está vacío <a href="{{ route('products') }}">Ver productos</a></p>
     @endif
 </div>
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-danger">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmar acción</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="confirmMessage">
+        ¿Estás seguro que deseas eliminar este producto?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmActionBtn">Sí, continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    let currentForm = null;
+
+    document.querySelectorAll('.btn-confirm-delete').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.getElementById('confirmMessage').textContent =
+                `¿Estás seguro que deseas eliminar "${this.dataset.item}" del carrito?`;
+            currentForm = this.closest('form');
+            const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+            modal.show();
+        });
+    });
+
+    document.querySelector('.btn-confirm-clear')?.addEventListener('click', function () {
+        document.getElementById('confirmMessage').textContent =
+            "¿Estás seguro que deseas vaciar todo el carrito?";
+        currentForm = this.closest('form');
+        const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        modal.show();
+    });
+
+    document.getElementById('confirmActionBtn').addEventListener('click', function () {
+        if (currentForm) currentForm.submit();
+    });
+</script>
 @endsection
