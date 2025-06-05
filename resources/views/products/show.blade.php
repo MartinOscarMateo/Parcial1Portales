@@ -96,7 +96,7 @@
     </div>
 </div>
 
-{{-- Toast de éxito --}}
+{{-- Toast de exito --}}
 @if (session('success'))
 <div id="toast-success" class="position-fixed top-0 end-0 p-3" style="z-index: 1055;">
     <div class="toast align-items-center text-white bg-success border-0 show" role="alert">
