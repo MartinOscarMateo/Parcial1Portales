@@ -41,7 +41,7 @@
 </section>
 
 {{-- Beneficios tienda --}}
-<section class="py-5 bg-light">
+<section class="py-5">
   <div class="container">
     <div class="row text-center g-4">
       <div class="col-md-4">
