@@ -22,7 +22,7 @@
                 @foreach($cart as $item)
                 <tr>
                     <td>
-                        <img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}" style="width: 50px;">
+                        <img src="{{ asset('storage' . $item['image']) }}" alt="{{ $item['name'] }}" style="width: 50px;">
                         {{ $item['name'] }}
                     </td>
                     <td>{{ $item['size'] }}</td>

@@ -4,20 +4,49 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Panel de Administración</h1>
+    <h1 class="text-center mb-4 text-shadow text-primary">Panel de Administración</h1>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6 transition-transform hover-scale">
             {{-- Link real a gestión de publicaciones --}}
-            <a href="{{ route('posts.index') }}" class="btn btn-primary w-100 mb-3">Gestionar Publicaciones del Foro</a>
+            <a href="{{ route('posts.index') }}" class="btn btn-light mb-3 d-flex flex-column align-items-center justify-content-center fs-5 shadow-sm border-0 transition-transform" style="height: 200px;">
+                Gestionar Publicaciones del Foro
+                <i class="bi bi-newspaper mt-2" style="font-size: 3rem;"></i>
+            </a>
         </div>
-        <div class="col-md-4">
-            {{-- Futuro link a gestión de productos --}}
-            <a href="{{ route('products.index') }}" class="btn btn-primary w-100 mb-3">Gestionar Productos</a>
+        <div class="col-md-6 transition-transform hover-scale">
+            {{-- Link a gestión de productos --}}
+            <a href="{{ route('products.index') }}" class="btn btn-light mb-3 d-flex flex-column align-items-center justify-content-center fs-5 shadow-sm border-0 transition-transform" style="height: 200px;">
+                Gestionar Productos
+                <i class="bi bi-box-seam-fill mt-2" style="font-size: 3rem;"></i>
+            </a>
         </div>
-        <div class="col-md-4">
-            {{-- Futuro link a gestión de usuarios --}}
-            <a href="{{ route('users.index') }}" class="btn btn-primary w-100 mb-3">Gestionar Usuarios</a>
+        <div class="col-md-6 transition-transform hover-scale">
+            {{-- Link a gestión de usuarios --}}
+            <a href="{{ route('users.index') }}" class="btn btn-light mb-3 d-flex flex-column align-items-center justify-content-center fs-5 shadow-sm border-0 transition-transform" style="height: 200px;">
+                Gestionar Usuarios <i class="bi bi-person-fill-gear mt-2" style="font-size: 3rem;"></i>
+            </a>
+        </div>
+        <div class="col-md-6 transition-transform hover-scale">
+            {{-- Futuro link a gestión de ordenes --}}
+            <a href="####" class="btn btn-light mb-3 d-flex flex-column align-items-center justify-content-center fs-5 shadow-sm border-0 transition-transform disabled" style="height: 200px;">
+                Ordenes (Proximamente) 
+                <i class="bi bi-file-earmark-text-fill mt-2" style="font-size: 3rem;"></i>
+            </a>
         </div>
     </div>
+    
 </div>
+
+<style>
+    .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    .transition-transform {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .hover-scale:hover {
+        transform: scale(1.015);
+        opacity: 0.95;
+    }
+</style>
 @endsection

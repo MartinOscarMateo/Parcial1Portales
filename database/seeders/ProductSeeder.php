@@ -13,7 +13,15 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
+        //No me dejaba usar --seed por las restricciones :D
+
+        // Desactiva las restricciones de claves foráneas
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         DB::table('products')->truncate();
+
+        // Reactiva las restricciones de claves foráneas
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         Product::create([
             'name' => 'Zapatilla',
