@@ -49,8 +49,6 @@
     ```bash
     php artisan storage:link
     ```
-    Copia o move la carpeta `products` (con las imágenes de los productos) a `storage/app/public/`.  
-    Después de ejecutar `php artisan storage:link`
 
 6. **Inicia el servidor:**
 
