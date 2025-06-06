@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="text-center mb-4 text-shadow text-primary">Panel de Administración</h1>
+    <h1 class="display-4 fw-bold text-center mb-5 text-shadow text-primary">Panel de Administración</h1>
     <div class="row">
         <div class="col-md-6 transition-transform hover-scale">
             {{-- Link real a gestión de publicaciones --}}
@@ -28,8 +28,8 @@
         </div>
         <div class="col-md-6 transition-transform hover-scale">
             {{-- Futuro link a gestión de ordenes --}}
-            <a href="####" class="btn btn-light mb-3 d-flex flex-column align-items-center justify-content-center fs-5 shadow-sm border-0 transition-transform disabled" style="height: 200px;">
-                Ordenes (Proximamente) 
+            <a href="{{ route('orders.index') }}" class="btn btn-light mb-3 d-flex flex-column align-items-center justify-content-center fs-5 shadow-sm border-0 transition-transform" style="height: 200px;">
+                Listado de Ordenes 
                 <i class="bi bi-file-earmark-text-fill mt-2" style="font-size: 3rem;"></i>
             </a>
         </div>

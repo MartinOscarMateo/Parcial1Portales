@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 
 // Pag principal
@@ -69,6 +70,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/products', [ProductController::class, 'store'])->name('products.store');
     Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+    Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
 
 });
 

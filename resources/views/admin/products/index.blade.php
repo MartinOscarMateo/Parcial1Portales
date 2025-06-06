@@ -91,6 +91,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div>
+            {{ $products->links() }}
+        </div>
     @endif
 </div>
 @endsection

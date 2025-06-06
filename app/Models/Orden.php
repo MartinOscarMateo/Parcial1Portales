@@ -31,4 +31,9 @@ class Orden extends Model
     {
         return $this->hasOne(Pago::class);
     }
+
+    public function itemOrdenes()
+    {
+        return $this->hasMany(ItemOrden::class, 'orden_id');
+    }
 }

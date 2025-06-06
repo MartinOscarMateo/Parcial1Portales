@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Gstionar Usuarios')
+@section('title', 'Gestionar Usuarios')
 
 @section('content')
 <div class="container">
@@ -98,6 +98,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="container mt-4">
+        {{ $users->links() }}
+    </div>
 @endif
 
 @endsection

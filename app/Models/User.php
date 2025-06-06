@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->roles()->whereRaw('LOWER(name) = ?', [strtolower($rol)])->exists();
     }
+
+    public function ordenes()
+    {
+        return $this->hasMany(Orden::class, 'user_id');
+    }
 }

@@ -26,8 +26,7 @@
           <li class="nav-item"><a class="nav-link text-dark hover-effect" href="{{ route('products') }}">Productos</a></li>
           <li class="nav-item"><a class="nav-link text-dark hover-effect" href="{{ route('contact') }}">Contacto</a></li>
           <li class="nav-item"><a class="nav-link text-dark hover-effect" href="{{ route('forum') }}">Novedades</a></li>
-          <li class="nav-item"><a class="nav-link text-dark hover-effect" href="{{ route('carrito.index') }}"><i class="bi bi-cart"></i> Carrito</a></li>
-
+          <li class="nav-item"><a class="nav-link text-dark hover-effect" href="{{ route('carrito.index') }}">Carrito <i class="bi bi-cart"></i></a></li>
           @auth
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark hover-effect" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

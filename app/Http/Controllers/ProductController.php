@@ -10,14 +10,14 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all(); 
+        $products = Product::paginate(6)->withQueryString(); 
 
         return view('products.index', compact('products')); 
     }
 
     public function adminIndex()
     {
-        $products = Product::all(); 
+        $products = Product::paginate(5)->withQueryString(); 
 
         return view('admin.products.index', compact('products')); 
     }

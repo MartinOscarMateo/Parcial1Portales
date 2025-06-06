@@ -11,7 +11,7 @@ class UserController extends Controller
     public function index()
     {
         // lista de usuarios 
-        $users = User::all();
+        $users = User::paginate(15)->WithQueryString();
         return view('admin.users.index', compact('users'));
     }
 
