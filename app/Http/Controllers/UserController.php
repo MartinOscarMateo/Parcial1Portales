@@ -15,6 +15,18 @@ class UserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
+    public function create()
+    {
+        return view('admin.users.create');
+    }
+
+    public function edit($id)
+    {
+        // editar usuario
+        $user = User::findOrFail($id);
+        return view('admin.users.edit', compact('user'));
+    }
+
     public function store(Request $request)
     {
 

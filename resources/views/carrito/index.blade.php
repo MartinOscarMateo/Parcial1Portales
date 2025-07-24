@@ -26,15 +26,18 @@
             <tbody>
                 @foreach($cart as $key => $item)
                 <tr>
-                    <td class="d-flex align-items-center">
-                        <img src="{{ asset('storage' . $item['image']) }}" alt="{{ $item['name'] }}" style="width: 50px; border-radius: 5px;">
-                        <span class="ms-3">{{ $item['name'] }}</span>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="{{ asset('storage' . $item['image']) }}" alt="{{ $item['name'] }}" style="width: 50px; border-radius: 5px;">
+                            <span class="ms-3">{{ $item['name'] }}</span>
+                        </div>
                     </td>
                     <td>{{ $item['size'] }}</td>
                     <td>${{ number_format($item['price'], 2, ',', '.') }}</td>
                     <td>
                         <form action="{{ route('carrito.updateQuantity', $key) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" class="form-control shadow-sm" style="width: 60px;">
                             <button type="submit" class="btn btn-secondary btn-sm mt-2 rounded-pill">Actualizar</button>
                         </form>
@@ -43,6 +46,7 @@
                     <td>
                         <form action="{{ route('carrito.remove', $key) }}" method="POST" class="delete-form">
                             @csrf
+                            @method('PUT')
                             <button type="button" class="btn btn-danger btn-sm rounded-pill btn-confirm-delete" data-item="{{ $item['name'] }}">Eliminar</button>
                         </form>
                     </td>

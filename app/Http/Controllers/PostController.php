@@ -14,6 +14,19 @@ class PostController extends Controller
         return view('forum', compact('posts'));
     }
 
+    // Crear nueva publi
+    public function create()
+    {
+        return view('admin.posts.create');
+    }
+
+    // Editar una publi
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('admin.posts.edit', compact('post'));
+    }
+
     // Mostrar todas las publis
     public function adminIndex()
     {
@@ -25,8 +38,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'title' => 'required|string||min:5|max:255',
+            'content' => 'required|string|min:10|max:400',
         ]);
 
         Post::create([
@@ -41,8 +54,8 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'title' => 'required|string|min:5|max:255',
+            'content' => 'required|string|min:10|max:400',
         ]);
 
         $post = Post::findOrFail($id);

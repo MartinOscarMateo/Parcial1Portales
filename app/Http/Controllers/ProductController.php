@@ -22,6 +22,18 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products')); 
     }
 
+    public function create()
+    {
+        return view('admin.products.create'); 
+    }
+
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+
+        return view('admin.products.edit', compact('product')); 
+    }
+
     public function show($id)
     {
         $product = Product::findOrFail($id);
@@ -45,9 +57,9 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:90',
+            'name' => 'required|string|min:2|max:90',
             'price' => 'required|numeric|min:1|max:999999',
-            'description' => 'required|string|max:200',
+            'description' => 'required|string|min:10|max:200',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -65,9 +77,9 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:90',
+            'name' => 'required|string|min:2|max:90',
             'price' => 'required|numeric|min:1|max:999999',
-            'description' => 'required|string|max:200',
+            'description' => 'required|string|min:10|max:200',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
