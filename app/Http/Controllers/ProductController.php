@@ -61,13 +61,23 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:1|max:999999',
             'description' => 'required|string|min:10|max:200',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'extra_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'extra_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            
         ]);
+
+        $image = $request->file('image')->store('products', 'public');
+        $extraImage1 = $request->file('extra_image_1')?->store('products', 'public');
+        $extraImage2 = $request->file('extra_image_2')?->store('products', 'public');
 
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
-            'image' => '/' . $request->file('image')->store('products', 'public'),
+            'image' => $image,
+            'extra_image_1' => $extraImage1,
+            'extra_image_2' => $extraImage2,
+
         ]);
     
 
@@ -81,41 +91,62 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:1|max:999999',
             'description' => 'required|string|min:10|max:200',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'extra_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'extra_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $product = Product::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            // Elimina la imagen anterior
-            $imagePath = ltrim($product->image, '/');
-            Storage::disk('public')->delete($imagePath);
-
-            // Guarda la nueva imagen
-            $newImage = '/' . $request->file('image')->store('products', 'public');
-        } else {
-            $newImage = $product->image;
+            Storage::disk('public')->delete(ltrim($product->image, '/'));
+            $product->image = $request->file('image')->store('products', 'public');
         }
-        
+
+        if ($request->hasFile('extra_image_1')) {
+            if ($product->extra_image_1) {
+                Storage::disk('public')->delete(ltrim($product->extra_image_1, '/'));
+            }
+            $product->extra_image_1 = $request->file('extra_image_1')->store('products', 'public');
+        }
+
+        if ($request->hasFile('extra_image_2')) {
+            if ($product->extra_image_2) {
+                Storage::disk('public')->delete(ltrim($product->extra_image_2, '/'));
+            }
+            $product->extra_image_2 = $request->file('extra_image_2')->store('products', 'public');
+        }
+
         $product->update([
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
-            'image' => $newImage,
+            'image' => $product->image,
+            'extra_image_1' => $product->extra_image_1,
+            'extra_image_2' => $product->extra_image_2,
         ]);
 
         return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente.'); 
     }
 
     public function destroy($id)
-    {
-        $product = Product::findOrFail($id);
+{
+    $product = Product::findOrFail($id);
 
-        // Eliminar la imagen del producto
-        $imagePath = ltrim($product->image, '/');
-        Storage::disk('public')->delete($imagePath);
-
-        $product->delete();
-
-        return redirect()->route('products.index')->with('success', 'Producto eliminado correctamente.'); 
+    if ($product->image) {
+        Storage::disk('public')->delete(ltrim($product->image, '/'));
     }
+
+    if ($product->extra_image_1) {
+        Storage::disk('public')->delete(ltrim($product->extra_image_1, '/'));
+    }
+
+    if ($product->extra_image_2) {
+        Storage::disk('public')->delete(ltrim($product->extra_image_2, '/'));
+    }
+
+    $product->delete();
+
+    return redirect()->route('products.index')->with('success', 'Producto eliminado correctamente.');
+}
+
 }
