@@ -11,7 +11,7 @@
         <div class="col">
             <article class="card h-100 border-0 shadow-sm rounded-3 overflow-hidden transition-transform hover-scale">
                 <img 
-                    src="{{ asset('storage' . $product->image) }}" 
+                    src="{{ Storage::url('products/' . $product->image) }}" 
                     class="card-img-top object-fit-cover transition-transform" 
                     alt="Imagen de {{ $product->name }}" 
                     style="height: 250px;"
