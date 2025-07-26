@@ -45,28 +45,41 @@
                 <td>
                     <p>{{ $product->description }}</p>
                 </td>
+            <tr>
+                <td>
+                    <p>{{ $product->id }}</p>
+                </td>
+                <td>
+                    <p>{{ $product->name }}</p>
+                </td>
+                <td>
+                    <p>${{ number_format($product->price, 0, ',', '.') }}</p>
+                </td>
+                <td>
+                    <p>{{ $product->description }}</p>
+                </td>
 
                 <td>
                     @if($product->image)
                     <div>
                         <small class="text-muted">Principal</small><br>
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="Imagen principal" class="img-thumbnail mb-2" style="max-width: 100px;">
+                        <img src="{{ Storage::url($product->image) }}" alt="Imagen principal" class="img-thumbnail mb-2" style="max-width: 100px;">
                     </div>
                     @endif
                     @if($product->extra_image_1)
                     <div>
                         <small class="text-muted">Extra 1</small><br>
-                        <img src="{{ asset('storage/' . $product->extra_image_1) }}" alt="Imagen Extra 1" class="img-thumbnail mb-2" style="max-width: 100px;">
+                        <img src="{{ Storage::url($product->extra_image_1) }}" alt="Imagen Extra 1" class="img-thumbnail mb-2" style="max-width: 100px;">
                     </div>
                     @endif
                     @if($product->extra_image_2)
                     <div>
                         <small class="text-muted">Extra 2</small><br>
-                        <img src="{{ asset('storage/' . $product->extra_image_2) }}" alt="Imagen Extra 2" class="img-thumbnail mb-2" style="max-width: 100px;">
+                        <img src="{{ Storage::url($product->extra_image_2) }}" alt="Imagen Extra 2" class="img-thumbnail mb-2" style="max-width: 100px;">
                     </div>
                     @endif
                 </td>
-                
+
                 <td>
                     <p>{{ $product->created_at->format('d/m/Y H:i') }}</p>
                 </td>
