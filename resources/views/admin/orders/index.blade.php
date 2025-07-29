@@ -6,6 +6,14 @@
 
     <div class="container mt-5">
         <h1 class="display-4 fw-bold text-center mb-5 text-shadow text-primary">Listado de Ordenes</h1>
+        @if($ItemOrders->isEmpty())
+            <div class="text-center py-5 bg-light rounded-3 shadow-sm">
+                <i class="bi bi-file-earmark-x-fill fs-1 text-muted mb-3"></i>
+                <h3 class="fw-bold text-dark mb-3">¡Tu listado de ordenes está vacío!</h3>
+                <p class="lead text-muted mx-auto" style="max-width: 600px;">Parece que aún no se han añadido productos a tu listado de órdenes.</p>
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-lg rounded-pill mt-3 text-decoration-none">Volver al panel</a>
+            </div>
+        @else
         @foreach ($users as $user)
         <div class="card mb-4">
             <div class="card-header">
@@ -24,7 +32,7 @@
                             </button>
                         </form>
                     </div>
-                    <table class="table table-bordered table-hover mt-2">
+                    <table class="table table-success table-bordered table-hover mt-2">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -48,7 +56,7 @@
                             <tr>
                                 <td colspan="4">Total Orden:</td>
                                 {{-- Total de las ordenes divididas por usuario --}}
-                                <td colspan="2"><strong>${{ $orderTotals[$orden->id] ?? 0 }}</strong></td>
+                                <td colspan="2"><strong>${{ number_format($orderTotals[$orden->id] ?? 0, 0, ',', '.') }}</strong></td>
                             </tr>
                         </tbody>
                     </table>
@@ -57,6 +65,7 @@
             </div>
         </div>
         @endforeach
+        @endif
     </div>
 
     <style>

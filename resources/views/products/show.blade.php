@@ -11,18 +11,18 @@
             <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{ Storage::url('products/' . $product->image) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
+                        <img src="{{ Storage::url($product->image) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
                     </div>
 
                     @if ($product->extra_image_1)
                     <div class="carousel-item">
-                        <img src="{{ Storage::url('products/' . $product->extra_image_1) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
+                        <img src="{{ Storage::url($product->extra_image_1) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
                     </div>
                     @endif
 
                     @if ($product->extra_image_2)
                     <div class="carousel-item">
-                        <img src="{{ Storage::url('products/' . $product->extra_image_2) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
+                        <img src="{{ Storage::url($product->extra_image_2) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
                     </div>
                     @endif
                 </div>

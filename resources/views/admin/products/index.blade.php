@@ -25,26 +25,13 @@
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Descripción</th>
-                <th>Imágenes</th>
+                <th>Imágen</th>
                 <th>Fecha</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach($products as $product)
-            <tr>
-                <td>
-                    <p>{{ $product->id }}</p>
-                </td>
-                <td>
-                    <p>{{ $product->name }}</p>
-                </td>
-                <td>
-                    <p>{{ $product->price }}</p>
-                </td>
-                <td>
-                    <p>{{ $product->description }}</p>
-                </td>
             <tr>
                 <td>
                     <p>{{ $product->id }}</p>
