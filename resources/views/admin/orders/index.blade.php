@@ -11,7 +11,7 @@
                 <i class="bi bi-file-earmark-x-fill fs-1 text-muted mb-3"></i>
                 <h3 class="fw-bold text-dark mb-3">¡Tu listado de ordenes está vacío!</h3>
                 <p class="lead text-muted mx-auto" style="max-width: 600px;">Parece que aún no se han añadido productos a tu listado de órdenes.</p>
-                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-lg rounded-pill mt-3 text-decoration-none">Volver al panel</a>
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary btn-lg rounded-pill mt-3 text-decoration-none pe-4"><i class="bi bi-chevron-left"></i> Volver al panel</a>
             </div>
         @else
         @foreach ($users as $user)
@@ -32,7 +32,7 @@
                             </button>
                         </form>
                     </div>
-                    <table class="table table-success table-bordered table-hover mt-2">
+                    <table class="table table-bordered table-hover mt-2">
                         <thead>
                             <tr>
                                 <th>ID</th>
