@@ -52,8 +52,12 @@ class CarritoController extends Controller
         $cart = session()->get('cart', []);
 
         if (isset($cart[$key])) {
-            $cart[$key]['quantity'] = $request->input('quantity');
-            session()->put('cart', $cart);
+            $quantity = $request->input('quantity');
+        
+            if (is_numeric($quantity) && $quantity > 0) {
+                $cart[$key]['quantity'] = $quantity;
+                session()->put('cart', $cart);
+            }
         }
 
         return redirect()->route('carrito.index')->with('success', 'Cantidad actualizada');
