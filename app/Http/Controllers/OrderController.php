@@ -9,26 +9,13 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
     public function index()
     {
-        $ItemOrders = ItemOrden::all();
-        $orders = Orden::all();
+       
+        $ordenes = Orden::with(['user', 'itemsOrden.product'])->latest()->get();
 
-        // Filtrar usuarios que tienen al menos un item en alguna orden
-        $userIdsWithItems = $orders->pluck('user_id')->unique();
-        $users = User::whereIn('id', $userIdsWithItems)->get();
-
-        // Calcular el precio total por cada orden individual del usuario
-        $orderTotals = [];
-        foreach ($orders as $order) {
-            $orderTotal = 0;
-            foreach ($ItemOrders->where('orden_id', $order->id) as $item) {
-                $orderTotal += $item['price'] * $item['quantity'];
-            }
-            $orderTotals[$order->id] = $orderTotal;
-        }
-
-        return view('admin.orders.index', compact('orders', 'ItemOrders', 'users', 'orderTotals'));
+        return view('admin.orders.index', compact('ordenes'));
     }
 
     public function destroy($id)

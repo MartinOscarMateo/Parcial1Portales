@@ -108,17 +108,16 @@ class CarritoController extends Controller
             $total += $item['price'] * $item['quantity'];
         }
 
-        // Crear la orden
         $orden = Orden::create([
             'user_id' => Auth::id(),
-            'total' => $total,
+            'total' => $total, 
             'estado' => 'pendiente',
         ]);
 
         foreach ($cart as $key => $item) {
             ItemOrden::create([
                 'orden_id' => $orden->id,
-                'product_id' => explode('-', $key)[0],
+                'product_id' => Product::where('name', $item['name'])->first()->id, 
                 'size' => $item['size'],
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],

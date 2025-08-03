@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Orden extends Model
 {
@@ -13,8 +12,8 @@ class Orden extends Model
 
     protected $fillable = [
         'user_id',
-        'total',
-        'estado',
+        'status',
+        'total', 
     ];
 
     public function user()
@@ -22,17 +21,7 @@ class Orden extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function items()
-    {
-        return $this->hasMany(ItemOrden::class);
-    }
-
-    public function pago()
-    {
-        return $this->hasOne(Pago::class);
-    }
-
-    public function itemOrdenes()
+    public function itemsOrden()
     {
         return $this->hasMany(ItemOrden::class, 'orden_id');
     }
