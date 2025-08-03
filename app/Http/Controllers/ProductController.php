@@ -10,28 +10,25 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::paginate(6)->withQueryString(); 
-
-        return view('products.index', compact('products')); 
+        $products = Product::paginate(6)->withQueryString();
+        return view('products.index', compact('products'));
     }
 
     public function adminIndex()
     {
-        $products = Product::paginate(5)->withQueryString(); 
-
-        return view('admin.products.index', compact('products')); 
+        $products = Product::paginate(5)->withQueryString();
+        return view('admin.products.index', compact('products'));
     }
 
     public function create()
     {
-        return view('admin.products.create'); 
+        return view('admin.products.create');
     }
 
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-
-        return view('admin.products.edit', compact('product')); 
+        return view('admin.products.edit', compact('product'));
     }
 
     public function show($id)
@@ -48,10 +45,9 @@ class ProductController extends Controller
             $extraImages[] = $product->extra_image_2;
         }
 
-
         $product->extra_images = $extraImages;
 
-        return view('products.show', compact('product')); 
+        return view('products.show', compact('product'));
     }
 
     public function store(Request $request)
@@ -60,10 +56,9 @@ class ProductController extends Controller
             'name' => 'required|string|min:2|max:90',
             'price' => 'required|numeric|min:1|max:999999',
             'description' => 'required|string|min:10|max:200',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'extra_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'extra_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'extra_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'extra_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $image = $request->file('image')->store('products', 'public');
@@ -77,11 +72,9 @@ class ProductController extends Controller
             'image' => $image,
             'extra_image_1' => $extraImage1,
             'extra_image_2' => $extraImage2,
-
         ]);
-    
 
-        return redirect()->route('products.index')->with('success', 'Producto creado correctamente.'); 
+        return redirect()->route('products.index')->with('success', 'Producto creado correctamente.');
     }
 
     public function update(Request $request, $id)
@@ -90,63 +83,50 @@ class ProductController extends Controller
             'name' => 'required|string|min:2|max:90',
             'price' => 'required|numeric|min:1|max:999999',
             'description' => 'required|string|min:10|max:200',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'extra_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'extra_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'extra_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'extra_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $product = Product::findOrFail($id);
+        $data = $request->only(['name', 'price', 'description']);
 
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete(ltrim($product->image, '/'));
-            $product->image = $request->file('image')->store('products', 'public');
+            Storage::disk('public')->delete($product->image);
+            $data['image'] = $request->file('image')->store('products', 'public');
         }
 
         if ($request->hasFile('extra_image_1')) {
-            if ($product->extra_image_1) {
-                Storage::disk('public')->delete(ltrim($product->extra_image_1, '/'));
-            }
-            $product->extra_image_1 = $request->file('extra_image_1')->store('products', 'public');
+            Storage::disk('public')->delete($product->extra_image_1);
+            $data['extra_image_1'] = $request->file('extra_image_1')->store('products', 'public');
         }
 
         if ($request->hasFile('extra_image_2')) {
-            if ($product->extra_image_2) {
-                Storage::disk('public')->delete(ltrim($product->extra_image_2, '/'));
-            }
-            $product->extra_image_2 = $request->file('extra_image_2')->store('products', 'public');
+            Storage::disk('public')->delete($product->extra_image_2);
+            $data['extra_image_2'] = $request->file('extra_image_2')->store('products', 'public');
         }
 
-        $product->update([
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'image' => $product->image,
-            'extra_image_1' => $product->extra_image_1,
-            'extra_image_2' => $product->extra_image_2,
-        ]);
+        $product->update($data);
 
-        return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente.'); 
+        return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente.');
     }
 
     public function destroy($id)
-{
-    $product = Product::findOrFail($id);
+    {
+        $product = Product::findOrFail($id);
 
-    if ($product->image) {
-        Storage::disk('public')->delete(ltrim($product->image, '/'));
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+        if ($product->extra_image_1) {
+            Storage::disk('public')->delete($product->extra_image_1);
+        }
+        if ($product->extra_image_2) {
+            Storage::disk('public')->delete($product->extra_image_2);
+        }
+
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', 'Producto eliminado correctamente.');
     }
-
-    if ($product->extra_image_1) {
-        Storage::disk('public')->delete(ltrim($product->extra_image_1, '/'));
-    }
-
-    if ($product->extra_image_2) {
-        Storage::disk('public')->delete(ltrim($product->extra_image_2, '/'));
-    }
-
-    $product->delete();
-
-    return redirect()->route('products.index')->with('success', 'Producto eliminado correctamente.');
-}
-
 }
