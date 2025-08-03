@@ -7,7 +7,7 @@
     <h1 class="display-4 fw-bold text-center mb-5 text-shadow text-primary">Carrito de Compras</h1>
 
     @if(session('success'))
-        <div class="alert alert-success rounded-3 shadow-sm">{{ session('success') }}</div>
+    <div class="alert alert-success rounded-3 shadow-sm">{{ session('success') }}</div>
     @endif
 
     @if(is_array($cart) && count($cart) > 0)
@@ -28,7 +28,7 @@
                 <tr>
                     <td>
                         <div class="d-flex align-items-center">
-                            <img src="{{ asset('storage' . $item['image']) }}" alt="{{ $item['name'] }}" style="width: 50px; border-radius: 5px;">
+                            <img src="{{ Storage::url($item['image']) }}" alt="{{ $item['name'] }}" style="width: 50px; border-radius: 5px;">
                             <span class="ms-3">{{ $item['name'] }}</span>
                         </div>
                     </td>
@@ -46,7 +46,7 @@
                     <td>
                         <form action="{{ route('carrito.remove', $key) }}" method="POST" class="delete-form">
                             @csrf
-                            @method('PUT')
+                            @method('DELETE')
                             <button type="button" class="btn btn-danger btn-sm rounded-pill btn-confirm-delete" data-item="{{ $item['name'] }}">Eliminar</button>
                         </form>
                     </td>
@@ -105,7 +105,7 @@
     let currentForm = null;
 
     document.querySelectorAll('.btn-confirm-delete').forEach(btn => {
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', function() {
             document.getElementById('confirmMessage').textContent =
                 `¿Estás seguro que deseas eliminar "${this.dataset.item}" del carrito?`;
             currentForm = this.closest('form');
@@ -114,7 +114,7 @@
         });
     });
 
-    document.querySelector('.btn-confirm-clear')?.addEventListener('click', function () {
+    document.querySelector('.btn-confirm-clear')?.addEventListener('click', function() {
         document.getElementById('confirmMessage').textContent =
             "¿Estás seguro que deseas vaciar todo el carrito?";
         currentForm = this.closest('form');
@@ -122,7 +122,7 @@
         modal.show();
     });
 
-    document.getElementById('confirmActionBtn').addEventListener('click', function () {
+    document.getElementById('confirmActionBtn').addEventListener('click', function() {
         if (currentForm) currentForm.submit();
     });
 </script>

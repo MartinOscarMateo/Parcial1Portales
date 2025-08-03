@@ -78,55 +78,62 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|min:2|max:90',
-            'price' => 'required|numeric|min:1|max:999999',
-            'description' => 'required|string|min:10|max:200',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            'extra_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            'extra_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|min:2|max:90',
+        'price' => 'required|numeric|min:1|max:999999',
+        'description' => 'required|string|min:10|max:200',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        'extra_image_1' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        'extra_image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+    ]);
 
-        $product = Product::findOrFail($id);
-        $data = $request->only(['name', 'price', 'description']);
+    $product = Product::findOrFail($id);
+    $data = $request->only(['name', 'price', 'description']);
 
-        if ($request->hasFile('image')) {
+    if ($request->hasFile('image')) {
+        if (!empty($product->image)) {
             Storage::disk('public')->delete($product->image);
-            $data['image'] = $request->file('image')->store('products', 'public');
         }
-
-        if ($request->hasFile('extra_image_1')) {
-            Storage::disk('public')->delete($product->extra_image_1);
-            $data['extra_image_1'] = $request->file('extra_image_1')->store('products', 'public');
-        }
-
-        if ($request->hasFile('extra_image_2')) {
-            Storage::disk('public')->delete($product->extra_image_2);
-            $data['extra_image_2'] = $request->file('extra_image_2')->store('products', 'public');
-        }
-
-        $product->update($data);
-
-        return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente.');
+        $data['image'] = $request->file('image')->store('products', 'public');
     }
+
+    if ($request->hasFile('extra_image_1')) {
+        if (!empty($product->extra_image_1)) {
+            Storage::disk('public')->delete($product->extra_image_1);
+        }
+        $data['extra_image_1'] = $request->file('extra_image_1')->store('products', 'public');
+    }
+
+    if ($request->hasFile('extra_image_2')) {
+        if (!empty($product->extra_image_2)) {
+            Storage::disk('public')->delete($product->extra_image_2);
+        }
+        $data['extra_image_2'] = $request->file('extra_image_2')->store('products', 'public');
+    }
+
+    $product->update($data);
+
+    return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente.');
+}
+
 
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
 
-        if ($product->image) {
+        if (!empty($product->image)) {
             Storage::disk('public')->delete($product->image);
         }
-        if ($product->extra_image_1) {
+        if (!empty($product->extra_image_1)) {
             Storage::disk('public')->delete($product->extra_image_1);
         }
-        if ($product->extra_image_2) {
+        if (!empty($product->extra_image_2)) {
             Storage::disk('public')->delete($product->extra_image_2);
         }
-
+    
         $product->delete();
-
+    
         return redirect()->route('products.index')->with('success', 'Producto eliminado correctamente.');
     }
 }

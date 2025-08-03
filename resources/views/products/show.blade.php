@@ -14,17 +14,11 @@
                         <img src="{{ Storage::url($product->image) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
                     </div>
 
-                    @if ($product->extra_image_1)
+                    @foreach ($product->extra_images as $extra)
                     <div class="carousel-item">
-                        <img src="{{ Storage::url($product->extra_image_1) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
+                        <img src="{{ Storage::url($extra) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
                     </div>
-                    @endif
-
-                    @if ($product->extra_image_2)
-                    <div class="carousel-item">
-                        <img src="{{ Storage::url($product->extra_image_2) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
-                    </div>
-                    @endif
+                    @endforeach
                 </div>
 
                 <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
@@ -79,7 +73,7 @@
                     <input type="hidden" name="name" value="{{ $product->name }}">
                     <input type="hidden" name="price" value="{{ $product->price }}">
                     <input type="hidden" name="image" value="{{ $product->image }}">
-                    <input type="hidden" name="size" id="selected-size" value="35"> 
+                    <input type="hidden" name="size" id="selected-size" value="35">
 
                     <button type="submit" class="btn btn-warning w-100 py-3 mt-3">
                         <i class="bi bi-cart-plus"></i> Agregar al carrito
