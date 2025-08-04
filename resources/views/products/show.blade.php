@@ -10,24 +10,27 @@
         <div class="col-md-6">
             <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="{{ Storage::url($product->image) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
-                    </div>
+                    @php
+                        $imagenes = [];
+                        if ($product->image) $imagenes[] = $product->image;
+                        if ($product->extra_image_1) $imagenes[] = $product->extra_image_1;
+                        if ($product->extra_image_2) $imagenes[] = $product->extra_image_2;
+                    @endphp
 
-                    @foreach ($product->extra_images as $extra)
-                    <div class="carousel-item">
-                        <img src="{{ Storage::url($extra) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
-                    </div>
+                    @foreach ($imagenes as $index => $img)
+                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                            <img src="{{ Storage::url($img) }}" class="d-block w-100 rounded shadow-sm" alt="{{ $product->name }}">
+                        </div>
                     @endforeach
                 </div>
 
                 <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                    <span class="visually-hidden">Anterior</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                    <span class="visually-hidden">Siguiente</span>
                 </button>
             </div>
         </div>
@@ -46,17 +49,9 @@
             <div class="mt-4">
                 <label for="size" class="form-label fw-semibold">Seleccionar talle</label>
                 <select id="size" class="form-select shadow-sm">
-                    <option value="35">35</option>
-                    <option value="36">36</option>
-                    <option value="37">37</option>
-                    <option value="38">38</option>
-                    <option value="39">39</option>
-                    <option value="40">40</option>
-                    <option value="41">41</option>
-                    <option value="42">42</option>
-                    <option value="43">43</option>
-                    <option value="44">44</option>
-                    <option value="45">45</option>
+                    @for ($i = 35; $i <= 45; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
                 </select>
             </div>
 
@@ -90,7 +85,6 @@
     </div>
 </div>
 
-{{-- Toast de exito --}}
 @if (session('success'))
 <div id="toast-success" class="position-fixed top-0 end-0 p-3" style="z-index: 1055;">
     <div class="toast align-items-center text-white bg-success border-0 show" role="alert">
@@ -109,5 +103,4 @@
     }, 3000);
 </script>
 @endif
-
 @endsection
