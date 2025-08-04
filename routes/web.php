@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MercadoPagoController;
 
 // Pag principal
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -82,5 +83,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
+Route::get('/pagar', [MercadoPagoController::class, 'pagar'])->name('pago.iniciar');
+Route::get('/pago-exitoso', [MercadoPagoController::class, 'exito'])->name('pago.exito');
+Route::get('/pago-fallido', [MercadoPagoController::class, 'fallo'])->name('pago.fallo');
+Route::get('/pago-pendiente', [MercadoPagoController::class, 'pendiente'])->name('pago.pendiente');
 
 require __DIR__.'/auth.php';
