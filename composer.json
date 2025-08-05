@@ -9,7 +9,7 @@
         "php": "^8.2",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
-        "mercadopago/dx-php": "3.0.0"
+        "mercadopago/sdk": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -27,7 +27,7 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
-    },
+    },          
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
@@ -36,7 +36,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "exit 0"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
