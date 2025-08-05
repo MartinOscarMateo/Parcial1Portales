@@ -59,7 +59,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/admin/posts', [PostController::class, 'adminIndex'])->name('posts.index');
     Route::get('/admin/posts/create', [PostController::class, 'create'])->name('posts.create');
-    route::get('admin/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::get('admin/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
     Route::put('/admin/posts/{id}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/admin/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
@@ -83,7 +83,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
-Route::get('/pagar', [MercadoPagoController::class, 'pagar'])->name('pago.iniciar');
+Route::get('/pagar', [MercadoPagoController::class, 'pagar'])->name('pagar');
 Route::get('/pago-exitoso', [MercadoPagoController::class, 'exito'])->name('pago.exito');
 Route::get('/pago-fallido', [MercadoPagoController::class, 'fallo'])->name('pago.fallo');
 Route::get('/pago-pendiente', [MercadoPagoController::class, 'pendiente'])->name('pago.pendiente');

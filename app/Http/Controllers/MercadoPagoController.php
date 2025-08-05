@@ -12,16 +12,32 @@ class MercadoPagoController extends Controller
 {
     public function pagar()
     {
-        MercadoPagoConfig::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
+        
+        $accessToken = env('MERCADOPAGO_ACCESS_TOKEN');
+        if (!$accessToken) {
+            return redirect()->back()->with('error', 'No se configuró el token de MercadoPago.');
+        }
 
-        // Crear ítem
-        $item = new PreferenceItem();
-        $item->title = "Producto de prueba";
-        $item->quantity = 1;
-        $item->unit_price = 100.00;
+        MercadoPagoConfig::setAccessToken($accessToken);
+
+        $cart = session('cart', []);
+        if (empty($cart)) {
+            return redirect()->route('carrito.index')->with('error', 'El carrito está vacío.');
+        }
+
+        $client = new PreferenceClient();
+
+        $items = [];
+        foreach ($cart as $item) {
+            $mpItem = new PreferenceItem();
+            $mpItem->title = $item['name'];
+            $mpItem->quantity = (int) $item['quantity'];
+            $mpItem->unit_price = (float) $item['price'];
+            $items[] = $mpItem;
+        }
 
         $preferenceRequest = new PreferenceRequest();
-        $preferenceRequest->items = [$item];
+        $preferenceRequest->items = $items;
         $preferenceRequest->back_urls = [
             "success" => route('pago.exito'),
             "failure" => route('pago.fallo'),
@@ -29,13 +45,22 @@ class MercadoPagoController extends Controller
         ];
         $preferenceRequest->auto_return = "approved";
 
-        $client = new PreferenceClient();
         $preference = $client->create($preferenceRequest);
-
         return redirect($preference->init_point);
     }
 
-    public function exito() { return "¡Pago exitoso!"; }
-    public function fallo() { return "El pago falló."; }
-    public function pendiente() { return "El pago está pendiente."; }
+    public function exito()
+    {
+        return "¡Pago exitoso!";
+    }
+
+    public function fallo()
+    {
+        return "El pago falló.";
+    }
+
+    public function pendiente()
+    {
+        return "El pago está pendiente.";
+    }
 }

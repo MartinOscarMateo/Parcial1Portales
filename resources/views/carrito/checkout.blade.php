@@ -37,12 +37,12 @@
 
     <h4 class="text-end">Total a Pagar: ${{ number_format($totalPrice, 2, ',', '.') }}</h4>
 
-    <form action="{{ route('carrito.finalizar') }}" method="POST" class="text-end">
-        @csrf
-        <button type="submit" class="btn btn-success btn-lg mt-3">
-            Confirmar Compra
-        </button>
-    </form>
+    <div class="text-end">
+    <a href="{{ route('pagar') }}" class="btn btn-success btn-lg mt-3">
+        Ir a Mercado Pago
+    </a>
+</div>
+
 
     @else
     <p class="text-center">Tu carrito está vacío. <a href="{{ route('products') }}">Ver productos</a></p>
