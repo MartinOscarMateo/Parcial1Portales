@@ -60,6 +60,15 @@
 
    - Abre tu navegador y visita [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
+## Cueta Comprador De Pureba
+
+    - Tarjeta: 5031 7557 3453 0604
+    - Titular: APRO Demo
+    - Vencimiento: 11/30
+    - Codigo: 123
+    - DNI: 12.345.678
+    - Mail: TESTUSER1649859326@testuser.com
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
