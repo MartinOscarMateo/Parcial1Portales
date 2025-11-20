@@ -60,7 +60,7 @@
 
    - Abre tu navegador y visita [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-## Cueta Comprador De Pureba
+## Cuenta Comprador De Pureba
 
     - Tarjeta: 5031 7557 3453 0604
     - Titular: APRO Demo
